@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+    rclone:
+        image: rclone/rclone
+        security_opt:
+            - 'apparmor:unconfined'
+        cap_add:
+            - SYS_ADMIN
+        devices:
+            - /dev/fuse
+        volumes:
+            - '/etc/group:/etc/group:ro'
+            - '/etc/passwd:/etc/passwd:ro'
+            - '~/data:/data:shared'
+            - '~/.config/rclone:/config/rclone'
+        ports:
+            - '5572:5572'
+        networks:
+            bridge: {}
+        container_name: rclone_00
+networks:
+    bridge: {}
